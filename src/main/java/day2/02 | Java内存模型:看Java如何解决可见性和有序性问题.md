@@ -183,7 +183,7 @@ public FinalFieldExample() {
 在 Java 语言里面，Happens-Before 的语义本质上是一种可见性，
 A Happens-Before B 意味着 A 事件对 B 事件来说是可见的，
 无论 A 事件和 B 事件是否发生在同一个线程里。 例如 A 事件发生在线程 1 上，B 事件发生在线程 2 上，
-Happens-Before 规则保证线程 2 上也能看到 A 事件的发生。
+Happens-Before 规则保证线程 2 上也能看到 A 事件的发生
 
 # 课后思考
 有一个共享变量 abc，在一个线程里设置了 abc 的值 abc=3，你思考一下，有哪些办法可 以让其他线程能够看到abc==3?
