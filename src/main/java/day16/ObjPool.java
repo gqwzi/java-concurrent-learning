@@ -31,11 +31,11 @@ public class ObjPool<T, R> {
             sem.release();
         }
     }
-    ObjPool<Long, String> obj = new ObjPool<Long, String>(10,2);
+    ObjPool<Long, String> obj = new ObjPool<Long, String>(10,2L);
     public static void main(String[] args) {
-    pool.exec(t -> {
-            System.out.println(t);
-            return t.toString();
-        });
+//    pool.exec(t -> {
+//            System.out.println(t);
+//            return t.toString();
+//        });
     }
 }
