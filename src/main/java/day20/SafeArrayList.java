@@ -1,7 +1,6 @@
 package day20;
 
-import java.util.ArrayList;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * @Author gaoqiangwei
@@ -29,4 +28,10 @@ public class SafeArrayList<T> {
         }
         return false;
     }
+}
+
+class CollectTest {
+    List safeArray = Collections.synchronizedList(new ArrayList<>());
+    Set safeSet = Collections.synchronizedSet(new HashSet<>());
+    Map safeMap = Collections.synchronizedMap(new HashMap<>());
 }
