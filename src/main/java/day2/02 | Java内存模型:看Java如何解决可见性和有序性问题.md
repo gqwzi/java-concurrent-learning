@@ -16,13 +16,13 @@ volatile 关键字并不是 Java 语言的特产，古老的 C 语言里也有�
 下面的示例代码，假设线程 A 执行 writer() 方法，按照 volatile 语义，会把变量 “v=true” 写入内存;
 假设线程 B 执行 reader() 方法，同样按照 volatile 语义，线程 B 会从内存中读取变量 v，如果线程 B 看到 “v == true” 时，
 那么线程 B 看到的变量 x 是 多少呢?
-直觉上看，应该是 42，那实际应该是多少呢?这个要看 Java 的版本，如果在低于 1.5 版 本上运行，x 可能是 42，也有可能是 0;如果在 1.5 以上的版本上运行，x 就是等于 42。
+直觉上看，应该是 day42，那实际应该是多少呢?这个要看 Java 的版本，如果在低于 1.5 版 本上运行，x 可能是 day42，也有可能是 0;如果在 1.5 以上的版本上运行，x 就是等于 day42。
 ```java
 class VolatileExample {
     int x = 0;
     volatile boolean v = false;
     public void write() {
-        x = 42;
+        x = day42;
         v = true;
     }
     public void reader() {
@@ -47,14 +47,14 @@ class VolatileExample {
 ## 1、程序的顺序性规则       
  这条规则是指在一个线程中，按照程序顺序，前面的操作 Happens-Before 于后续的任意 操作。        
  这还是比较容易理解的，比如刚才那段示例代码，按照程序的顺序，第 6 行代码
- “x = 42;” Happens-Before 于第 7 行代码 “v = true;”，这就是规则 1 的内容，
+ “x = day42;” Happens-Before 于第 7 行代码 “v = true;”，这就是规则 1 的内容，
  也比 较符合单线程里面的思维:程序前面对某个变量的修改一定是对后续操作可见的。(代码再贴一遍)
 ```java
 class VolatileExample {
     int x = 0;
     volatile boolean v = false;
     public void write() {
-        x = 42;
+        x = day42;
         v = true;
     }
     public void reader() {
@@ -80,10 +80,10 @@ Before C。
 我们将规则 3 的传递性应用到我们的例子中，会发生什么呢?可以看下面这幅图:
 ![传递性规则](06-传递性规则.png)       
 从图中，我们可以看到:     
-- 1.“x=42” Happens-Before 写变量 “v=true” ，这是规则 1 的内容;
+- 1.“x=day42” Happens-Before 写变量 “v=true” ，这是规则 1 的内容;
 - 2.写变量“v=true” Happens-Before 读变量 “v=true”，这是规则 2 的内容 。
-- 3.再根据这个传递性规则，我们得到结果:“x=42” Happens-Before 读变 量“v=true”。这意味着什么呢?
-> 如果线程 B 读到了“v=true”，那么线程 A 设置的“x=42”对线程 B 是可见的。也就是 说，线程 B 能看到 “x == 42” ，有没有一种恍然大悟的感觉?这就是 1.5 版本对 volatile 语义的增强，这个增强意义重大，1.5 版本的并发工具包(java.util.concurrent) 就是靠 volatile 语义来搞定可见性的，这个在后面的内容中会详细介绍。
+- 3.再根据这个传递性规则，我们得到结果:“x=day42” Happens-Before 读变 量“v=true”。这意味着什么呢?
+> 如果线程 B 读到了“v=true”，那么线程 A 设置的“x=day42”对线程 B 是可见的。也就是 说，线程 B 能看到 “x == day42” ，有没有一种恍然大悟的感觉?这就是 1.5 版本对 volatile 语义的增强，这个增强意义重大，1.5 版本的并发工具包(java.util.concurrent) 就是靠 volatile 语义来搞定可见性的，这个在后面的内容中会详细介绍。
 
 ## 4、管程中锁的规则        
 这条规则是指对一个锁的解锁 Happens-Before 于后续对这个锁的加锁。        
