@@ -1,7 +1,5 @@
-package day5;
+package day05;
 
-
-import day5.Account1;
 
 import java.util.ArrayList;
 import java.util.List;
